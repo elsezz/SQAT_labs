@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="order_defs" targetNamespace="http://kpi.ua/tzyapz/shopline" exporter="Command C generator" exporterVersion="1.0">
+<bpmn:collaboration id="order_collab">
+<bpmn:participant id="P_buyer" name="Покупець" processRef="P_buyer_proc" />
+<bpmn:participant id="P_shop" name="ШопЛайн" processRef="P_shop_proc" />
+<bpmn:participant id="P_pay" name="Платіжний шлюз" />
+<bpmn:participant id="P_dlv" name="Служба доставки" />
+<bpmn:messageFlow id="mf1" name="Замовлення" sourceRef="b_confirm" targetRef="s_start" />
+<bpmn:messageFlow id="mf2" name="Запит на оплату" sourceRef="s_req" targetRef="P_pay" />
+<bpmn:messageFlow id="mf3" name="Результат оплати" sourceRef="P_pay" targetRef="s_c_resp" />
+<bpmn:messageFlow id="mf4" name="Скасування" sourceRef="s_cancel" targetRef="b_c_no" />
+<bpmn:messageFlow id="mf5" name="Відмова в оплаті" sourceRef="s_decline" targetRef="b_c_no" />
+<bpmn:messageFlow id="mf6" name="Підтвердження" sourceRef="s_confirm" targetRef="b_c_ok" />
+<bpmn:messageFlow id="mf7" name="Замовлення на доставку" sourceRef="m_hand" targetRef="P_dlv" />
+<bpmn:messageFlow id="mf8" name="Статус «Доставлено»" sourceRef="P_dlv" targetRef="m_c_deliv" />
+<bpmn:messageFlow id="mf9" name="Посилка" sourceRef="P_dlv" targetRef="b_c_parcel" />
+</bpmn:collaboration>
+<bpmn:process id="P_buyer_proc" isExecutable="false">
+<bpmn:dataObject id="do_cart_do" />
+<bpmn:dataObjectReference id="do_cart" name="Кошик" dataObjectRef="do_cart_do" />
+<bpmn:startEvent id="b_start" name="Кошик сформовано"><bpmn:outgoing>f1</bpmn:outgoing></bpmn:startEvent>
+<bpmn:task id="b_checkout" name="Натиснути «Оформити замовлення»"><bpmn:incoming>f1</bpmn:incoming><bpmn:outgoing>f2</bpmn:outgoing><bpmn:dataInputAssociation id="b_checkout_do_cart_in"><bpmn:sourceRef>do_cart</bpmn:sourceRef></bpmn:dataInputAssociation></bpmn:task>
+<bpmn:exclusiveGateway id="b_gw_login" name="Покупець увійшов у кабінет?" default="f4"><bpmn:incoming>f2</bpmn:incoming><bpmn:outgoing>f3</bpmn:outgoing><bpmn:outgoing>f4</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:task id="b_login" name="Увійти або зареєструватися"><bpmn:incoming>f4</bpmn:incoming><bpmn:outgoing>f5</bpmn:outgoing></bpmn:task>
+<bpmn:exclusiveGateway id="b_merge1" name=""><bpmn:incoming>f3</bpmn:incoming><bpmn:incoming>f5</bpmn:incoming><bpmn:outgoing>f6</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:task id="b_address" name="Вказати адресу доставки"><bpmn:incoming>f6</bpmn:incoming><bpmn:outgoing>f7</bpmn:outgoing></bpmn:task>
+<bpmn:exclusiveGateway id="b_gw_pay" name="Спосіб оплати?" default="f9"><bpmn:incoming>f7</bpmn:incoming><bpmn:outgoing>f8</bpmn:outgoing><bpmn:outgoing>f9</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:task id="b_card" name="Ввести дані картки"><bpmn:incoming>f8</bpmn:incoming><bpmn:outgoing>f10</bpmn:outgoing></bpmn:task>
+<bpmn:task id="b_offline" name="Обрати переказ або оплату при отриманні"><bpmn:incoming>f9</bpmn:incoming><bpmn:outgoing>f11</bpmn:outgoing></bpmn:task>
+<bpmn:exclusiveGateway id="b_merge2" name=""><bpmn:incoming>f10</bpmn:incoming><bpmn:incoming>f11</bpmn:incoming><bpmn:outgoing>f12</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:sendTask id="b_confirm" name="Підтвердити замовлення"><bpmn:incoming>f12</bpmn:incoming><bpmn:outgoing>f13</bpmn:outgoing></bpmn:sendTask>
+<bpmn:eventBasedGateway id="b_evgw" name="Яка відповідь магазину?"><bpmn:incoming>f13</bpmn:incoming><bpmn:outgoing>f14</bpmn:outgoing><bpmn:outgoing>f15</bpmn:outgoing></bpmn:eventBasedGateway>
+<bpmn:intermediateCatchEvent id="b_c_ok" name="Отримано підтвердження з номером"><bpmn:incoming>f14</bpmn:incoming><bpmn:outgoing>f16</bpmn:outgoing><bpmn:messageEventDefinition id="order_x1" /></bpmn:intermediateCatchEvent>
+<bpmn:intermediateCatchEvent id="b_c_parcel" name="Отримано посилку"><bpmn:incoming>f16</bpmn:incoming><bpmn:outgoing>f17</bpmn:outgoing><bpmn:messageEventDefinition id="order_x2" /></bpmn:intermediateCatchEvent>
+<bpmn:endEvent id="b_end_ok" name="Замовлення отримано"><bpmn:incoming>f17</bpmn:incoming></bpmn:endEvent>
+<bpmn:intermediateCatchEvent id="b_c_no" name="Отримано відмову"><bpmn:incoming>f15</bpmn:incoming><bpmn:outgoing>f18</bpmn:outgoing><bpmn:messageEventDefinition id="order_x3" /></bpmn:intermediateCatchEvent>
+<bpmn:endEvent id="b_end_no" name="Замовлення не оформлено"><bpmn:incoming>f18</bpmn:incoming></bpmn:endEvent>
+<bpmn:sequenceFlow id="f1" sourceRef="b_start" targetRef="b_checkout"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f2" sourceRef="b_checkout" targetRef="b_gw_login"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f3" name="так" sourceRef="b_gw_login" targetRef="b_merge1"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f4" name="ні" sourceRef="b_gw_login" targetRef="b_login"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f5" sourceRef="b_login" targetRef="b_merge1"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f6" sourceRef="b_merge1" targetRef="b_address"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f7" sourceRef="b_address" targetRef="b_gw_pay"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f8" name="картка онлайн" sourceRef="b_gw_pay" targetRef="b_card"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">картка онлайн</bpmn:conditionExpression></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f9" name="інший спосіб" sourceRef="b_gw_pay" targetRef="b_offline"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f10" sourceRef="b_card" targetRef="b_merge2"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f11" sourceRef="b_offline" targetRef="b_merge2"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f12" sourceRef="b_merge2" targetRef="b_confirm"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f13" sourceRef="b_confirm" targetRef="b_evgw"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f14" sourceRef="b_evgw" targetRef="b_c_ok"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f15" sourceRef="b_evgw" targetRef="b_c_no"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f16" sourceRef="b_c_ok" targetRef="b_c_parcel"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f17" sourceRef="b_c_parcel" targetRef="b_end_ok"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="f18" sourceRef="b_c_no" targetRef="b_end_no"></bpmn:sequenceFlow>
+<bpmn:textAnnotation id="n1"><bpmn:text>Способи оплати — як у поточній версії продукту (F-110)</bpmn:text></bpmn:textAnnotation>
+<bpmn:association id="n1_as" sourceRef="b_gw_pay" targetRef="n1" />
+</bpmn:process>
+<bpmn:process id="P_shop_proc" isExecutable="false">
+<bpmn:laneSet id="P_shop_ls">
+<bpmn:lane id="L_site" name="Сайт (система)">
+<bpmn:flowNodeRef>s_start</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_gw_online</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_req</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_evgw</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_c_resp</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_timer</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_cancel</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_end_cancel</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_gw_paid</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_decline</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_end_decl</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_merge</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_create</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_and1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>s_confirm</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="L_mgr" name="Менеджер магазину">
+<bpmn:flowNodeRef>m_pick</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>m_and2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>m_hand</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>m_c_deliv</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>m_end</bpmn:flowNodeRef>
+</bpmn:lane>
+</bpmn:laneSet>
+<bpmn:dataObject id="do_invoice_do" />
+<bpmn:dataObjectReference id="do_invoice" name="Рахунок-інвойс" dataObjectRef="do_invoice_do" />
+<bpmn:startEvent id="s_start" name="Отримано замовлення"><bpmn:outgoing>g1</bpmn:outgoing><bpmn:messageEventDefinition id="order_x4" /></bpmn:startEvent>
+<bpmn:exclusiveGateway id="s_gw_online" name="Оплата онлайн?" default="g3"><bpmn:incoming>g1</bpmn:incoming><bpmn:outgoing>g2</bpmn:outgoing><bpmn:outgoing>g3</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:sendTask id="s_req" name="Надіслати запит на оплату"><bpmn:incoming>g2</bpmn:incoming><bpmn:outgoing>g4</bpmn:outgoing></bpmn:sendTask>
+<bpmn:eventBasedGateway id="s_evgw" name="Що настане раніше?"><bpmn:incoming>g4</bpmn:incoming><bpmn:outgoing>g5</bpmn:outgoing><bpmn:outgoing>g6</bpmn:outgoing></bpmn:eventBasedGateway>
+<bpmn:intermediateCatchEvent id="s_c_resp" name="Отримано відповідь шлюзу"><bpmn:incoming>g5</bpmn:incoming><bpmn:outgoing>g9</bpmn:outgoing><bpmn:messageEventDefinition id="order_x5" /></bpmn:intermediateCatchEvent>
+<bpmn:intermediateCatchEvent id="s_timer" name="Минуло 24 години"><bpmn:incoming>g6</bpmn:incoming><bpmn:outgoing>g7</bpmn:outgoing><bpmn:timerEventDefinition id="order_x6"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT24H</bpmn:timeDuration></bpmn:timerEventDefinition></bpmn:intermediateCatchEvent>
+<bpmn:sendTask id="s_cancel" name="Скасувати замовлення"><bpmn:incoming>g7</bpmn:incoming><bpmn:outgoing>g8</bpmn:outgoing></bpmn:sendTask>
+<bpmn:endEvent id="s_end_cancel" name="Покупець відмовився"><bpmn:incoming>g8</bpmn:incoming></bpmn:endEvent>
+<bpmn:exclusiveGateway id="s_gw_paid" name="Оплату підтверджено?" default="g11"><bpmn:incoming>g9</bpmn:incoming><bpmn:outgoing>g10</bpmn:outgoing><bpmn:outgoing>g11</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:sendTask id="s_decline" name="Повідомити про відхилення оплати"><bpmn:incoming>g11</bpmn:incoming><bpmn:outgoing>g12</bpmn:outgoing></bpmn:sendTask>
+<bpmn:endEvent id="s_end_decl" name="Оплату відхилено"><bpmn:incoming>g12</bpmn:incoming></bpmn:endEvent>
+<bpmn:exclusiveGateway id="s_merge" name=""><bpmn:incoming>g3</bpmn:incoming><bpmn:incoming>g10</bpmn:incoming><bpmn:outgoing>g13</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:task id="s_create" name="Створити замовлення і рахунок-інвойс"><bpmn:incoming>g13</bpmn:incoming><bpmn:outgoing>g14</bpmn:outgoing><bpmn:dataOutputAssociation id="s_create_do_invoice_out"><bpmn:targetRef>do_invoice</bpmn:targetRef></bpmn:dataOutputAssociation></bpmn:task>
+<bpmn:parallelGateway id="s_and1" name=""><bpmn:incoming>g14</bpmn:incoming><bpmn:outgoing>g15</bpmn:outgoing><bpmn:outgoing>g16</bpmn:outgoing></bpmn:parallelGateway>
+<bpmn:sendTask id="s_confirm" name="Надіслати підтвердження з номером"><bpmn:incoming>g15</bpmn:incoming><bpmn:outgoing>g17</bpmn:outgoing></bpmn:sendTask>
+<bpmn:subProcess id="m_pick" name="Укомплектувати замовлення"><bpmn:incoming>g16</bpmn:incoming><bpmn:outgoing>g18</bpmn:outgoing>
+<bpmn:startEvent id="m_pick_i0" name="Замовлення передано на склад"><bpmn:outgoing>m_pick_f1</bpmn:outgoing></bpmn:startEvent>
+<bpmn:task id="m_pick_i1" name="Зібрати товари за переліком"><bpmn:incoming>m_pick_f1</bpmn:incoming><bpmn:outgoing>m_pick_f2</bpmn:outgoing></bpmn:task>
+<bpmn:sequenceFlow id="m_pick_f1" sourceRef="m_pick_i0" targetRef="m_pick_i1" />
+<bpmn:task id="m_pick_i2" name="Упакувати і наклеїти етикетку"><bpmn:incoming>m_pick_f2</bpmn:incoming><bpmn:outgoing>m_pick_f3</bpmn:outgoing></bpmn:task>
+<bpmn:sequenceFlow id="m_pick_f2" sourceRef="m_pick_i1" targetRef="m_pick_i2" />
+<bpmn:endEvent id="m_pick_i3" name="Замовлення укомплектовано"><bpmn:incoming>m_pick_f3</bpmn:incoming></bpmn:endEvent>
+<bpmn:sequenceFlow id="m_pick_f3" sourceRef="m_pick_i2" targetRef="m_pick_i3" />
+</bpmn:subProcess>
+<bpmn:parallelGateway id="m_and2" name=""><bpmn:incoming>g17</bpmn:incoming><bpmn:incoming>g18</bpmn:incoming><bpmn:outgoing>g19</bpmn:outgoing></bpmn:parallelGateway>
+<bpmn:sendTask id="m_hand" name="Передати замовлення службі доставки"><bpmn:incoming>g19</bpmn:incoming><bpmn:outgoing>g20</bpmn:outgoing></bpmn:sendTask>
+<bpmn:intermediateCatchEvent id="m_c_deliv" name="Отримано статус доставки"><bpmn:incoming>g20</bpmn:incoming><bpmn:outgoing>g21</bpmn:outgoing><bpmn:messageEventDefinition id="order_x7" /></bpmn:intermediateCatchEvent>
+<bpmn:endEvent id="m_end" name="Доставлено"><bpmn:incoming>g21</bpmn:incoming></bpmn:endEvent>
+<bpmn:sequenceFlow id="g1" sourceRef="s_start" targetRef="s_gw_online"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g2" name="так" sourceRef="s_gw_online" targetRef="s_req"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">так</bpmn:conditionExpression></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g3" name="ні" sourceRef="s_gw_online" targetRef="s_merge"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g4" sourceRef="s_req" targetRef="s_evgw"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g5" sourceRef="s_evgw" targetRef="s_c_resp"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g6" sourceRef="s_evgw" targetRef="s_timer"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g7" sourceRef="s_timer" targetRef="s_cancel"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g8" sourceRef="s_cancel" targetRef="s_end_cancel"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g9" sourceRef="s_c_resp" targetRef="s_gw_paid"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g10" name="так" sourceRef="s_gw_paid" targetRef="s_merge"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">так</bpmn:conditionExpression></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g11" name="ні" sourceRef="s_gw_paid" targetRef="s_decline"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g12" sourceRef="s_decline" targetRef="s_end_decl"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g13" sourceRef="s_merge" targetRef="s_create"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g14" sourceRef="s_create" targetRef="s_and1"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g15" sourceRef="s_and1" targetRef="s_confirm"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g16" sourceRef="s_and1" targetRef="m_pick"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g17" sourceRef="s_confirm" targetRef="m_and2"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g18" sourceRef="m_pick" targetRef="m_and2"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g19" sourceRef="m_and2" targetRef="m_hand"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g20" sourceRef="m_hand" targetRef="m_c_deliv"></bpmn:sequenceFlow>
+<bpmn:sequenceFlow id="g21" sourceRef="m_c_deliv" targetRef="m_end"></bpmn:sequenceFlow>
+<bpmn:textAnnotation id="n2"><bpmn:text>Оплата онлайн не надійшла протягом 24 год</bpmn:text></bpmn:textAnnotation>
+<bpmn:association id="n2_as" sourceRef="s_timer" targetRef="n2" />
+</bpmn:process>
+<bpmndi:BPMNDiagram id="order_dia" name="01 Оформлення замовлення"><bpmndi:BPMNPlane id="order_plane" bpmnElement="order_collab">
+<bpmndi:BPMNShape id="P_buyer_di" bpmnElement="P_buyer" isHorizontal="true"><dc:Bounds x="100" y="0" width="1920" height="260" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P_shop_di" bpmnElement="P_shop" isHorizontal="true"><dc:Bounds x="100" y="330" width="1920" height="560" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_site_di" bpmnElement="L_site" isHorizontal="true"><dc:Bounds x="130" y="330" width="1890" height="360" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_mgr_di" bpmnElement="L_mgr" isHorizontal="true"><dc:Bounds x="130" y="690" width="1890" height="200" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P_pay_di" bpmnElement="P_pay" isHorizontal="true"><dc:Bounds x="100" y="950" width="1920" height="60" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P_dlv_di" bpmnElement="P_dlv" isHorizontal="true"><dc:Bounds x="100" y="1050" width="1920" height="60" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_start_di" bpmnElement="b_start"><dc:Bounds x="162" y="112" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="125" y="153" width="110" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_checkout_di" bpmnElement="b_checkout"><dc:Bounds x="230" y="90" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_gw_login_di" bpmnElement="b_gw_login" isMarkerVisible="true"><dc:Bounds x="395" y="105" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="355" y="60" width="130" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_login_di" bpmnElement="b_login"><dc:Bounds x="480" y="165" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_merge1_di" bpmnElement="b_merge1" isMarkerVisible="true"><dc:Bounds x="635" y="105" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="605" y="160" width="110" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_address_di" bpmnElement="b_address"><dc:Bounds x="720" y="90" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_gw_pay_di" bpmnElement="b_gw_pay" isMarkerVisible="true"><dc:Bounds x="885" y="105" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="860" y="20" width="100" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_card_di" bpmnElement="b_card"><dc:Bounds x="970" y="15" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_offline_di" bpmnElement="b_offline"><dc:Bounds x="970" y="165" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_merge2_di" bpmnElement="b_merge2" isMarkerVisible="true"><dc:Bounds x="1125" y="105" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1095" y="160" width="110" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_confirm_di" bpmnElement="b_confirm"><dc:Bounds x="1210" y="90" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_evgw_di" bpmnElement="b_evgw"><dc:Bounds x="1375" y="105" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1408" y="76" width="90" height="30" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_c_ok_di" bpmnElement="b_c_ok"><dc:Bounds x="1622" y="37" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1662" y="7" width="130" height="30" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_c_parcel_di" bpmnElement="b_c_parcel"><dc:Bounds x="1822" y="37" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1800" y="78" width="80" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_end_ok_di" bpmnElement="b_end_ok"><dc:Bounds x="1922" y="37" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1900" y="78" width="80" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_c_no_di" bpmnElement="b_c_no"><dc:Bounds x="1482" y="187" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1460" y="142" width="80" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="b_end_no_di" bpmnElement="b_end_no"><dc:Bounds x="1582" y="187" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1623" y="185" width="90" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_start_di" bpmnElement="s_start"><dc:Bounds x="162" y="502" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="140" y="543" width="80" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_gw_online_di" bpmnElement="s_gw_online" isMarkerVisible="true"><dc:Bounds x="265" y="495" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="240" y="550" width="90" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_req_di" bpmnElement="s_req"><dc:Bounds x="350" y="480" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_evgw_di" bpmnElement="s_evgw"><dc:Bounds x="505" y="495" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="490" y="550" width="80" height="30" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_c_resp_di" bpmnElement="s_c_resp"><dc:Bounds x="622" y="502" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="628" y="468" width="70" height="30" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_timer_di" bpmnElement="s_timer"><dc:Bounds x="612" y="407" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="590" y="374" width="80" height="28" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_cancel_di" bpmnElement="s_cancel"><dc:Bounds x="680" y="385" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_end_cancel_di" bpmnElement="s_end_cancel"><dc:Bounds x="832" y="407" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="810" y="448" width="80" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_gw_paid_di" bpmnElement="s_gw_paid" isMarkerVisible="true"><dc:Bounds x="735" y="495" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="770" y="472" width="110" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_decline_di" bpmnElement="s_decline"><dc:Bounds x="840" y="585" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_end_decl_di" bpmnElement="s_end_decl"><dc:Bounds x="1002" y="607" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1043" y="605" width="70" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_merge_di" bpmnElement="s_merge" isMarkerVisible="true"><dc:Bounds x="975" y="495" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="945" y="550" width="110" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_create_di" bpmnElement="s_create"><dc:Bounds x="1060" y="480" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_and1_di" bpmnElement="s_and1"><dc:Bounds x="1225" y="495" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1195" y="550" width="110" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s_confirm_di" bpmnElement="s_confirm"><dc:Bounds x="1310" y="480" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_pick_di" bpmnElement="m_pick" isExpanded="false"><dc:Bounds x="1310" y="730" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_and2_di" bpmnElement="m_and2"><dc:Bounds x="1475" y="745" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1445" y="800" width="110" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_hand_di" bpmnElement="m_hand"><dc:Bounds x="1560" y="730" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_c_deliv_di" bpmnElement="m_c_deliv"><dc:Bounds x="1742" y="752" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1720" y="707" width="80" height="40" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_end_di" bpmnElement="m_end"><dc:Bounds x="1882" y="752" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1860" y="793" width="80" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="do_cart_di" bpmnElement="do_cart"><dc:Bounds x="162" y="190" width="36" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="125" y="244" width="110" height="28" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="do_invoice_di" bpmnElement="do_invoice"><dc:Bounds x="1102" y="395" width="36" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1065" y="449" width="110" height="28" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="n1_di" bpmnElement="n1"><dc:Bounds x="680" y="188" width="162" height="58" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="n2_di" bpmnElement="n2"><dc:Bounds x="420" y="395" width="150" height="50" /></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="f1_di" bpmnElement="f1"><di:waypoint x="198" y="130" /><di:waypoint x="230" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f2_di" bpmnElement="f2"><di:waypoint x="350" y="130" /><di:waypoint x="395" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f3_di" bpmnElement="f3"><di:waypoint x="445" y="130" /><di:waypoint x="635" y="130" /><bpmndi:BPMNLabel><dc:Bounds x="451" y="110" width="21" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f4_di" bpmnElement="f4"><di:waypoint x="420" y="155" /><di:waypoint x="420" y="205" /><di:waypoint x="480" y="205" /><bpmndi:BPMNLabel><dc:Bounds x="425" y="171" width="14" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f5_di" bpmnElement="f5"><di:waypoint x="600" y="205" /><di:waypoint x="660" y="205" /><di:waypoint x="660" y="155" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f6_di" bpmnElement="f6"><di:waypoint x="685" y="130" /><di:waypoint x="720" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f7_di" bpmnElement="f7"><di:waypoint x="840" y="130" /><di:waypoint x="885" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f8_di" bpmnElement="f8"><di:waypoint x="910" y="105" /><di:waypoint x="910" y="55" /><di:waypoint x="970" y="55" /><bpmndi:BPMNLabel><dc:Bounds x="815" y="66" width="90" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f9_di" bpmnElement="f9"><di:waypoint x="910" y="155" /><di:waypoint x="910" y="205" /><di:waypoint x="970" y="205" /><bpmndi:BPMNLabel><dc:Bounds x="815" y="178" width="90" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f10_di" bpmnElement="f10"><di:waypoint x="1090" y="55" /><di:waypoint x="1150" y="55" /><di:waypoint x="1150" y="105" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f11_di" bpmnElement="f11"><di:waypoint x="1090" y="205" /><di:waypoint x="1150" y="205" /><di:waypoint x="1150" y="155" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f12_di" bpmnElement="f12"><di:waypoint x="1175" y="130" /><di:waypoint x="1210" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f13_di" bpmnElement="f13"><di:waypoint x="1330" y="130" /><di:waypoint x="1375" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f14_di" bpmnElement="f14"><di:waypoint x="1400" y="105" /><di:waypoint x="1400" y="55" /><di:waypoint x="1622" y="55" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f15_di" bpmnElement="f15"><di:waypoint x="1400" y="155" /><di:waypoint x="1400" y="205" /><di:waypoint x="1482" y="205" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f16_di" bpmnElement="f16"><di:waypoint x="1658" y="55" /><di:waypoint x="1822" y="55" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f17_di" bpmnElement="f17"><di:waypoint x="1858" y="55" /><di:waypoint x="1922" y="55" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f18_di" bpmnElement="f18"><di:waypoint x="1518" y="205" /><di:waypoint x="1582" y="205" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g1_di" bpmnElement="g1"><di:waypoint x="198" y="520" /><di:waypoint x="265" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g2_di" bpmnElement="g2"><di:waypoint x="315" y="520" /><di:waypoint x="350" y="520" /><bpmndi:BPMNLabel><dc:Bounds x="321" y="500" width="21" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g3_di" bpmnElement="g3"><di:waypoint x="290" y="495" /><di:waypoint x="290" y="355" /><di:waypoint x="1000" y="355" /><di:waypoint x="1000" y="495" /><bpmndi:BPMNLabel><dc:Bounds x="295" y="416" width="14" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g4_di" bpmnElement="g4"><di:waypoint x="470" y="520" /><di:waypoint x="505" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g5_di" bpmnElement="g5"><di:waypoint x="555" y="520" /><di:waypoint x="622" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g6_di" bpmnElement="g6"><di:waypoint x="530" y="495" /><di:waypoint x="530" y="425" /><di:waypoint x="612" y="425" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g7_di" bpmnElement="g7"><di:waypoint x="648" y="425" /><di:waypoint x="680" y="425" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g8_di" bpmnElement="g8"><di:waypoint x="800" y="425" /><di:waypoint x="832" y="425" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g9_di" bpmnElement="g9"><di:waypoint x="658" y="520" /><di:waypoint x="735" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g10_di" bpmnElement="g10"><di:waypoint x="785" y="520" /><di:waypoint x="975" y="520" /><bpmndi:BPMNLabel><dc:Bounds x="791" y="500" width="21" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g11_di" bpmnElement="g11"><di:waypoint x="760" y="545" /><di:waypoint x="760" y="625" /><di:waypoint x="840" y="625" /><bpmndi:BPMNLabel><dc:Bounds x="765" y="576" width="14" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g12_di" bpmnElement="g12"><di:waypoint x="960" y="625" /><di:waypoint x="1002" y="625" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g13_di" bpmnElement="g13"><di:waypoint x="1025" y="520" /><di:waypoint x="1060" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g14_di" bpmnElement="g14"><di:waypoint x="1180" y="520" /><di:waypoint x="1225" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g15_di" bpmnElement="g15"><di:waypoint x="1275" y="520" /><di:waypoint x="1310" y="520" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g16_di" bpmnElement="g16"><di:waypoint x="1250" y="545" /><di:waypoint x="1250" y="770" /><di:waypoint x="1310" y="770" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g17_di" bpmnElement="g17"><di:waypoint x="1430" y="520" /><di:waypoint x="1500" y="520" /><di:waypoint x="1500" y="745" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g18_di" bpmnElement="g18"><di:waypoint x="1430" y="770" /><di:waypoint x="1475" y="770" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g19_di" bpmnElement="g19"><di:waypoint x="1525" y="770" /><di:waypoint x="1560" y="770" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g20_di" bpmnElement="g20"><di:waypoint x="1680" y="770" /><di:waypoint x="1742" y="770" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="g21_di" bpmnElement="g21"><di:waypoint x="1778" y="770" /><di:waypoint x="1882" y="770" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf1_di" bpmnElement="mf1"><di:waypoint x="1270" y="170" /><di:waypoint x="1270" y="280" /><di:waypoint x="180" y="280" /><di:waypoint x="180" y="502" /><bpmndi:BPMNLabel><dc:Bounds x="1276" y="216" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf2_di" bpmnElement="mf2"><di:waypoint x="410" y="560" /><di:waypoint x="410" y="950" /><bpmndi:BPMNLabel><dc:Bounds x="416" y="746" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf3_di" bpmnElement="mf3"><di:waypoint x="640" y="950" /><di:waypoint x="640" y="538" /><bpmndi:BPMNLabel><dc:Bounds x="646" y="735" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf4_di" bpmnElement="mf4"><di:waypoint x="740" y="385" /><di:waypoint x="740" y="295" /><di:waypoint x="1492" y="295" /><di:waypoint x="1492" y="223" /><bpmndi:BPMNLabel><dc:Bounds x="746" y="331" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf5_di" bpmnElement="mf5"><di:waypoint x="900" y="585" /><di:waypoint x="900" y="307" /><di:waypoint x="1508" y="307" /><di:waypoint x="1508" y="223" /><bpmndi:BPMNLabel><dc:Bounds x="906" y="437" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf6_di" bpmnElement="mf6"><di:waypoint x="1370" y="480" /><di:waypoint x="1370" y="320" /><di:waypoint x="1640" y="320" /><di:waypoint x="1640" y="73" /><bpmndi:BPMNLabel><dc:Bounds x="1376" y="391" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf7_di" bpmnElement="mf7"><di:waypoint x="1620" y="810" /><di:waypoint x="1620" y="1050" /><bpmndi:BPMNLabel><dc:Bounds x="1626" y="921" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf8_di" bpmnElement="mf8"><di:waypoint x="1760" y="1050" /><di:waypoint x="1760" y="788" /><bpmndi:BPMNLabel><dc:Bounds x="1766" y="910" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf9_di" bpmnElement="mf9"><di:waypoint x="1840" y="1050" /><di:waypoint x="1840" y="73" /><bpmndi:BPMNLabel><dc:Bounds x="1846" y="552" width="120" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="b_checkout_do_cart_in_di" bpmnElement="b_checkout_do_cart_in"><di:waypoint x="180" y="190" /><di:waypoint x="290" y="170" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="s_create_do_invoice_out_di" bpmnElement="s_create_do_invoice_out"><di:waypoint x="1120" y="480" /><di:waypoint x="1120" y="445" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="n1_as_di" bpmnElement="n1_as"><di:waypoint x="910" y="155" /><di:waypoint x="690" y="188" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="n2_as_di" bpmnElement="n2_as"><di:waypoint x="612" y="425" /><di:waypoint x="570" y="420" /></bpmndi:BPMNEdge>
+</bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
+<bpmndi:BPMNDiagram id="m_pick_dia"><bpmndi:BPMNPlane id="m_pick_plane" bpmnElement="m_pick">
+<bpmndi:BPMNShape id="m_pick_i0_di" bpmnElement="m_pick_i0"><dc:Bounds x="100" y="182" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="63" y="223" width="110" height="30" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_pick_i1_di" bpmnElement="m_pick_i1"><dc:Bounds x="196" y="160" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="m_pick_f1_di" bpmnElement="m_pick_f1"><di:waypoint x="136" y="200" /><di:waypoint x="196" y="200" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNShape id="m_pick_i2_di" bpmnElement="m_pick_i2"><dc:Bounds x="376" y="160" width="120" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="m_pick_f2_di" bpmnElement="m_pick_f2"><di:waypoint x="316" y="200" /><di:waypoint x="376" y="200" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNShape id="m_pick_i3_di" bpmnElement="m_pick_i3"><dc:Bounds x="556" y="182" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="519" y="223" width="110" height="30" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="m_pick_f3_di" bpmnElement="m_pick_f3"><di:waypoint x="496" y="200" /><di:waypoint x="556" y="200" /></bpmndi:BPMNEdge>
+</bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
+</bpmn:definitions>
