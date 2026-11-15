@@ -13,7 +13,7 @@
 | `attachments/` | знімки екрана, імена за Bug ID | Інженер з тестування |
 | `task-board.md` | таблиця розподілу задач | Скрам-майстер |
 | `retro.md` | протокол ретро Start / Stop / Continue | Скрам-майстер |
-| `../../.github/ISSUE_TEMPLATE/bug_report.md` | шаблон issue | Інженер з тестування |
+| [`.github/ISSUE_TEMPLATE/bug_report.md`](https://github.com/elsezz/SQAT_labs/blob/main/.github/ISSUE_TEMPLATE/bug_report.md) | шаблон issue | Інженер з тестування |
 
 Трекер: GitHub Issues репозиторію https://github.com/elsezz/SQAT_labs/issues?q=label%3Asprint%3A3 (мітки severity:blocker … severity:trivial, priority:P1 … priority:P3, status:new … status:reopened, sprint:3).
 
