@@ -20,6 +20,27 @@
 | BUG-013 | [#13](https://github.com/elsezz/SQAT_labs/issues/13) | Реєстрація: після введення поштового індексу і номера будинку форма перезаписує вулицю, місто й область вигаданою адресою (Kris Greens, Tabithastad, Arizona) | Normal | P3 | TC-004, TC-005 | F-10, 1.3 |
 | BUG-014 | [#14](https://github.com/elsezz/SQAT_labs/issues/14) | Реєстрація: для пароля без спецсимволу показано хибне повідомлення «Password can not include invalid characters.» не під полем пароля | Minor | P3 | TC-005 | F-10, GUI-50 |
 
+## Перевірка за чек-листом 13.2
+
+Попередню перевірку 7 правил виконано 25.11.2026. Рецензентом звіту не може бути його автор (Пінчук К.): рецензент (Новосьолова О. або Сапронов А.) перевіряє зауваження і вписує ПІБ і дату в поле Reviewer кожного звіту.
+
+| Bug ID | Правила 1–7 | Зауваження | Виправлено автором |
+|---|---|---|---|
+| BUG-001 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-002 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-003 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-004 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-005 | 1:так 2:так 3:так 4:так 5:так 6:так 7:ні | 7: severity переглянуто з Minor на Normal після TC-004; мітку в issue #5 замінено на severity:normal 25.11.2026 | так |
+| BUG-006 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-007 | 1:так 2:так 3:ні 4:так 5:так 6:так 7:так | 3: пряме посилання з ID товару застаріло після скидання даних demo; крок 1 замінено на вибір картки в каталозі (коментар у #7) | так |
+| BUG-008 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-009 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-010 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-011 | 1:так 2:ні 3:так 4:ні 5:так 6:так 7:так | 2: звіт описує дві проблеми (немає підсумку на кроці Payment; рахунок без вартості доставки). 4: кроки посилались на TC-004. Кроки виправлено; розділення на два звіти на рішення рецензента | частково |
+| BUG-012 | 1:так 2:так 3:так 4:ні 5:так 6:так 7:так | 4: кроки посилались на BUG-011; додано самостійне створення замовлення | так |
+| BUG-013 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | - | - |
+| BUG-014 | 1:так 2:так 3:так 4:так 5:так 6:так 7:так | Правило 2 дотримано: хибний текст і розташування стосуються одного повідомлення помилки | - |
+
 ## BUG-001: Пошук: запит «hammer» не знаходить «Sledgehammer», хоча назва містить запит як підрядок (F-60)
 
 **Severity:** Major  **Priority:** P3  
@@ -42,7 +63,7 @@ F-60 (SRS v1.1) вимагає знаходити товари, назва як�
 За F-60: 7 товарів, серед них «Sledgehammer», бо назва містить «hammer» як підрядок без урахування регістру.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-001-1.jpg](attachments/BUG-001-1.jpg) - результати пошуку після кроку 3, шість карток
@@ -74,7 +95,7 @@ demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2
 На кроці «Sign in» доступні лише форма входу і посилання «Register your account»; можливості продовжити оформлення без облікового запису немає (2.1, F-110, S-20).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-002-1.jpg](attachments/BUG-002-1.jpg) - крок «Sign in» після кроку 6 з відкритою вкладкою «Continue as Guest»
@@ -103,7 +124,7 @@ F-140 дозволяє один файл .txt, .pdf, .jpg або .png розмі
 За F-140: підказка і атрибут accept дозволяють один файл .txt, .pdf, .jpg або .png розміром до 2 МБ.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-003-1.jpg](attachments/BUG-003-1.jpg) - сторінка «Contact», підказка під полем «Attachment»
@@ -132,7 +153,7 @@ F-70 вимагає застосовувати сортування до всі�
 Номер активної сторінки відповідає показаним карткам: після зміни сортування підсвічено «1» (або показано другу сторінку відсортованого списку, Combination Pliers … Drawer Tool Cabinet).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-004-1.jpg](attachments/BUG-004-1.jpg) - кінець списку після кроку 4: картки першої сторінки A–Z і підсвічена «2»
@@ -160,7 +181,7 @@ F-10 (SRS v1.1, дефект аудиту № 5) визначає обов'яз�
 Поле «House number» без зірочки; після кроку 3 обліковий запис створено і відкрито сторінку входу (F-10).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-005-1.jpg](attachments/BUG-005-1.jpg) - форма «Customer registration», плейсхолдер «e.g. 42 *»
@@ -189,7 +210,7 @@ U-30 вимагає кнопок, придатних для натискання
 Розмір кнопки не менше 44×44 пікселі (U-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; емуляція мобільного пристрою 375×812 (Android 14, Pixel 8); без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; емуляція мобільного пристрою 375×812 (Android 14, Pixel 8); без входу в обліковий запис
 
 ### Attachments
 - [BUG-006-1.jpg](attachments/BUG-006-1.jpg) - головна сторінка за ширини 375 px, кнопка ☰ під логотипом
@@ -217,7 +238,7 @@ GUI-80 вимагає на сторінці товару зображення н
 Зображення не менше 1000×1000 пікселів у форматі JPEG або WebP (GUI-80).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-007-1.jpg](attachments/BUG-007-1.jpg) - сторінка товару «Pliers»
@@ -246,7 +267,7 @@ GUI-30 вимагає, щоб кнопка «−» була неактивною
 Після кроку 3 кнопка «−» неактивна (disabled) і візуально відрізняється від активної (GUI-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-008-1.jpg](attachments/BUG-008-1.jpg) - сторінка товару «Pliers», поле «Quantity» = 1, кнопка «−» активна
@@ -276,7 +297,7 @@ GUI-30 вимагає, щоб кнопка «+» була неактивною �
 Після кроку 4 кнопка «+» неактивна (disabled) (GUI-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 15.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-009-1.png](attachments/BUG-009-1.png) - фрагмент сторінки товару: поле «Quantity» = 99, кнопка «+» активна
@@ -305,7 +326,7 @@ F-30 вимагає після надсилання форми показати 
 Після кроку 4 повідомлення зрозумілим текстом про те, що лист із посиланням для встановлення нового пароля надіслано (F-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-010-1.jpg](attachments/BUG-010-1.jpg) - сторінка «Forgot Password» після кроку 4 з текстом «page.forgot-password.confirm»
@@ -322,7 +343,7 @@ demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2
 F-110 вимагає, щоб підсумок замовлення містив суму товарів, знижку за обсяг, знижку за промокодом і вартість доставки за BL-60 (120 грн для суми менше 1500). Фактично на кроці «Payment» є лише список способів оплати і кнопка «Check payment», жодної суми покупець перед підтвердженням не бачить; створений рахунок INV-2026000009 має Total 12.01 для товару за 12.01, тобто без доставки. Severity Major: покупець підтверджує замовлення, не знаючи підсумкової суми, а доставка не нараховується. P3: інших кейсів не блокує.
 
 ### Steps to reproduce
-1. Відкрити https://practicesoftwaretesting.com у браузері, нова сесія; увійти власним тестовим обліковим записом (зареєстрованим за TC-004).
+1. Відкрити https://practicesoftwaretesting.com у браузері, нова сесія; увійти власним тестовим обліковим записом покупця (якщо його немає, спершу зареєструвати на /auth/register з вигаданими даними, домен example.com).
 2. Натиснути на картку «Pliers» (ціна 12.01), натиснути «Add to cart».
 3. Натиснути піктограму кошика, потім «Proceed to checkout» на кроках «Cart» і «Sign in».
 4. На кроці «Billing Address» за потреби заповнити «House number» = 1 і натиснути «Proceed to checkout».
@@ -336,7 +357,7 @@ F-110 вимагає, щоб підсумок замовлення містив 
 На кроці «Payment» підсумок: сума товарів 12.01, знижка за обсяг 0.00, знижка за промокодом 0.00, доставка 120.00, до сплати 132.01 (F-110, BL-60); рахунок створено на 132.01.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; власний тестовий обліковий запис t3.hanna.161126@example.com
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; власний тестовий обліковий запис t3.hanna.161126@example.com
 
 ### Attachments
 - [BUG-011-1.jpg](attachments/BUG-011-1.jpg) - крок «Payment» після вибору «Cash on Delivery»: підсумку немає
@@ -354,7 +375,7 @@ demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2
 F-130 вимагає, щоб розділ «My invoices» показував для кожного замовлення номер, дату, суму і статус. Фактично таблиця має колонки Invoice Number, Billing Address, Invoice Date, Total і кнопку Details, а сторінка деталей рахунку містить General Information, Billing Address, Payment Information і Products; статусу ніде немає. Severity Normal: покупець бачить замовлення, але не може дізнатися, на якому етапі воно. P3: кейсів не блокує.
 
 ### Steps to reproduce
-1. Відкрити https://practicesoftwaretesting.com у браузері, нова сесія; увійти обліковим записом, у якого є хоча б одне замовлення (наприклад, після кроків BUG-011).
+1. Відкрити https://practicesoftwaretesting.com у браузері, нова сесія; увійти власним тестовим обліковим записом покупця, у якого є хоча б одне замовлення (якщо немає, оформити: картка «Pliers», «Add to cart», кошик, «Proceed to checkout» на всіх кроках, оплата «Cash on Delivery», «Confirm»).
 2. У меню користувача обрати «My invoices».
 3. Переглянути заголовки таблиці.
 4. Натиснути «Details» біля першого рахунку і переглянути сторінку.
@@ -366,7 +387,7 @@ F-130 вимагає, щоб розділ «My invoices» показував д�
 У таблиці є колонка статусу замовлення, і статус показано на сторінці деталей (F-130).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; власний тестовий обліковий запис t3.hanna.161126@example.com
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; власний тестовий обліковий запис t3.hanna.161126@example.com
 
 ### Attachments
 - [BUG-012-1.jpg](attachments/BUG-012-1.jpg) - список «Invoices» з колонками без статусу
@@ -396,7 +417,7 @@ demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2
 Введені користувачем значення Street, City, State не перезаписуються; автозаповнення (якщо є) пропонує адресу, що відповідає країні й індексу, і не замінює дані без підтвердження.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-013-1.jpg](attachments/BUG-013-1.jpg) - форма реєстрації після кроку 5: Ukraine, 01001, 1 і підставлена адреса Kris Greens / Tabithastad / Arizona
@@ -425,7 +446,7 @@ F-10 вимагає для пароля, що не відповідає прав
 Безпосередньо під полем Password повідомлення про порушене правило, наприклад про відсутність спецсимволу (F-10, GUI-50); обліковий запис не створено.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0 (вбудований браузер Claude Desktop); Windows 10 x64; вікно 1280×800; без входу в обліковий запис
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 16.11.2026; Chromium 156.0; Windows 10 x64; вікно 1280×800; без входу в обліковий запис
 
 ### Attachments
 - [BUG-014-1.jpg](attachments/BUG-014-1.jpg) - форма після кроку 4: правила, індикатор і повідомлення «Password can not include invalid characters.»
