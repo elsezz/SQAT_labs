@@ -65,7 +65,7 @@ F-60 (SRS v1.1) вимагає знаходити товари, назва як�
 За F-60: 7 товарів, серед них «Sledgehammer», бо назва містить «hammer» як підрядок без урахування регістру.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-001-1.jpg](attachments/BUG-001-1.jpg) - результати пошуку після кроку 3, шість карток
@@ -97,7 +97,7 @@ demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2
 На кроці «Sign in» доступні лише форма входу і посилання «Register your account»; можливості продовжити оформлення без облікового запису немає (2.1, F-110, S-20).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-002-1.jpg](attachments/BUG-002-1.jpg) - крок «Sign in» після кроку 6 з відкритою вкладкою «Continue as Guest»
@@ -126,7 +126,7 @@ F-140 дозволяє один файл .txt, .pdf, .jpg або .png розмі
 За F-140: підказка і атрибут accept дозволяють один файл .txt, .pdf, .jpg або .png розміром до 2 МБ.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-003-1.jpg](attachments/BUG-003-1.jpg) - сторінка «Contact», підказка під полем «Attachment»
@@ -155,7 +155,7 @@ F-70 вимагає застосовувати сортування до всі�
 Номер активної сторінки відповідає показаним карткам: після зміни сортування підсвічено «1» (або показано другу сторінку відсортованого списку, Combination Pliers … Drawer Tool Cabinet).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-004-1.jpg](attachments/BUG-004-1.jpg) - кінець списку після кроку 4: картки першої сторінки A–Z і підсвічена «2»
@@ -183,7 +183,7 @@ F-10 (SRS v1.1, дефект аудиту № 5) визначає обов'яз�
 Поле «House number» без зірочки; після кроку 3 обліковий запис створено і відкрито сторінку входу (F-10).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-005-1.jpg](attachments/BUG-005-1.jpg) - форма «Customer registration», плейсхолдер «e.g. 42 *»
@@ -212,7 +212,7 @@ U-30 вимагає кнопок, придатних для натискання
 Розмір кнопки не менше 44×44 пікселі (U-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; область перегляду 375×812 (iframe на сторінці того ж сайту, без мобільного User-Agent; у Run 1 емуляція DevTools 375×812, Pixel 8); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; область перегляду 375×812 (iframe на сторінці того ж сайту, без мобільного User-Agent); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-006-1.jpg](attachments/BUG-006-1.jpg) - головна сторінка за ширини 375 px, кнопка ☰ під логотипом
@@ -240,7 +240,7 @@ GUI-80 вимагає на сторінці товару зображення н
 Зображення не менше 1000×1000 пікселів у форматі JPEG або WebP (GUI-80).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-007-1.jpg](attachments/BUG-007-1.jpg) - сторінка товару «Pliers»
@@ -269,7 +269,7 @@ GUI-30 вимагає, щоб кнопка «−» була неактивною
 Після кроку 3 кнопка «−» неактивна (disabled) і візуально відрізняється від активної (GUI-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-008-1.jpg](attachments/BUG-008-1.jpg) - сторінка товару «Pliers», поле «Quantity» = 1, кнопка «−» активна
@@ -299,7 +299,7 @@ GUI-30 вимагає, щоб кнопка «+» була неактивною �
 Після кроку 4 кнопка «+» неактивна (disabled) (GUI-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 15.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-009-1.png](attachments/BUG-009-1.png) - фрагмент сторінки товару: поле «Quantity» = 99, кнопка «+» активна
@@ -328,7 +328,7 @@ F-30 вимагає після надсилання форми показати 
 Після кроку 4 повідомлення зрозумілим текстом про те, що лист із посиланням для встановлення нового пароля надіслано (F-30).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-010-1.jpg](attachments/BUG-010-1.jpg) - сторінка «Forgot Password» після кроку 4 з текстом «page.forgot-password.confirm»
@@ -353,13 +353,13 @@ F-110 вимагає, щоб підсумок замовлення містив 
 6. Відкрити «My invoices» у меню користувача.
 
 ### Actual result
-Після кроку 5 (до підтвердження) на сторінці лише заголовок «Payment», список способів оплати і кнопка «Check payment»; сум, знижок і доставки немає. Після «Confirm» повідомлення «Thanks for your order! Your invoice number is INV-2026000014.». Після кроку 6 рахунок INV-2026000014 з Total $12.01 (у Run 1 так само: INV-2026000009, $12.01).
+Після кроку 5 (до підтвердження) на сторінці лише заголовок «Payment», список способів оплати і кнопка «Check payment»; сум, знижок і доставки немає. Після «Confirm» повідомлення «Thanks for your order! Your invoice number is INV-2026000014.». Після кроку 6 рахунок INV-2026000014 з Total $12.01 (16.11.2026 так само: INV-2026000009, $12.01).
 
 ### Expected result
 На кроці «Payment» підсумок: сума товарів 12.01, знижка за обсяг 0.00, знижка за промокодом 0.00, доставка 120.00, до сплати 132.01 (F-110, BL-60); рахунок створено на 132.01.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); власний тестовий обліковий запис t3.hanna.251126@example.com (у Run 1 t3.hanna.161126@example.com). Уперше виявлено 16.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); власний тестовий обліковий запис t3.hanna.251126@example.com. Уперше виявлено 16.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-011-1.jpg](attachments/BUG-011-1.jpg) - крок «Payment» після вибору «Cash on Delivery»: підсумку немає
@@ -389,7 +389,7 @@ F-130 вимагає, щоб розділ «My invoices» показував д�
 У таблиці є колонка статусу замовлення, і статус показано на сторінці деталей (F-130).
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); власний тестовий обліковий запис t3.hanna.251126@example.com (у Run 1 t3.hanna.161126@example.com). Уперше виявлено 16.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); власний тестовий обліковий запис t3.hanna.251126@example.com. Уперше виявлено 16.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-012-1.jpg](attachments/BUG-012-1.jpg) - список «Invoices» з колонками без статусу
@@ -419,7 +419,7 @@ demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2
 Введені користувачем значення Street, City, State не перезаписуються; автозаповнення (якщо є) пропонує адресу, що відповідає країні й індексу, і не замінює дані без підтвердження.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-013-1.jpg](attachments/BUG-013-1.jpg) - форма реєстрації після кроку 5: Ukraine, 01001, 1 і підставлена адреса Kris Greens / Tabithastad / Arizona
@@ -448,7 +448,7 @@ F-10 вимагає для пароля, що не відповідає прав
 Безпосередньо під полем Password повідомлення про порушене правило, наприклад про відсутність спецсимволу (F-10, GUI-50); обліковий запис не створено.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026 (Run 1, Chromium 156.0, Windows 10 x64), відтворено 25.11.2026 у Google Chrome (Run 2)
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Уперше виявлено 16.11.2026, відтворено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-014-1.jpg](attachments/BUG-014-1.jpg) - форма після кроку 4: правила, індикатор і повідомлення «Password can not include invalid characters.»
@@ -478,7 +478,7 @@ GUI-30 задає для поля «Quantity» допустимі значенн
 Після кроку 5 у полі 1 (найближча межа для від'ємного значення, GUI-30); значення 15 не з'являється.
 
 ### Environment
-demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Виявлено 25.11.2026 у Google Chrome (Run 2); у Run 1 (Chromium 156.0) TC-021 пройшов, відмінність можлива через інший спосіб введення
+demo https://practicesoftwaretesting.com (Toolshop v5.0, footer «v2.5 | Built 2026-10-11»), стан на 25.11.2026; Google Chrome 158.0.8127.38; Windows 11 x64; вікно 1280 px завширшки (область перегляду 1280×749); без входу в обліковий запис. Виявлено 25.11.2026 у Google Chrome
 
 ### Attachments
 - [BUG-015-1.png](attachments/BUG-015-1.png) - фрагмент сторінки товару «Pliers»: поле «Quantity» = 15 після введення -5 і Tab
